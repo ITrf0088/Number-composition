@@ -6,7 +6,7 @@ import org.rasulov.numbercomposition.domain.entities.Question
 
 interface GameRepository {
 
-    fun generateQuestion(maxSumValue: Int, countOfOptions: Int): Question
+    fun generateQuestion(maxSumValue: Int): Question
 
     fun getGameSettings(level: Level): GameSettings
 }
