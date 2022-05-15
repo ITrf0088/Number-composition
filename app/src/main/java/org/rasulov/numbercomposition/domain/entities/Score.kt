@@ -1,9 +1,7 @@
 package org.rasulov.numbercomposition.domain.entities
 
-data class GameResult(
-    val isWon: Boolean,
+data class Score(
     val rightAnswers: Int,
     val minRightAnswers: Int,
-    val percent: Int,
-    val minPercent: Int
+    val percent: Int
 )

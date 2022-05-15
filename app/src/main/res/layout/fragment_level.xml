@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:backgroundTint="@android:color/holo_green_dark"
+            android:backgroundTint="@android:color/holo_green_light"
             android:text="@string/easy_level" />
 
 
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:backgroundTint="@android:color/holo_orange_dark"
+            android:backgroundTint="@android:color/holo_orange_light"
             android:text="@string/normal_level" />
 
         <Button
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:backgroundTint="@android:color/holo_red_dark"
+            android:backgroundTint="@android:color/holo_red_light"
             android:text="@string/hard_level" />
 
         <Button

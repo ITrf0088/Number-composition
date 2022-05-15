@@ -1,12 +1,21 @@
 package org.rasulov.numbercomposition.domain.repository
 
-import org.rasulov.numbercomposition.domain.entities.GameSettings
-import org.rasulov.numbercomposition.domain.entities.Level
-import org.rasulov.numbercomposition.domain.entities.Question
+import androidx.lifecycle.LiveData
+import org.rasulov.numbercomposition.domain.entities.*
 
 interface GameRepository {
 
-    fun generateQuestion(maxSumValue: Int): Question
+    fun startGameProcess(level: Level): Boolean
 
-    fun getGameSettings(level: Level): GameSettings
+    fun getTimeInSeconds(): Int
+
+    fun getScore(): LiveData<Score>
+
+    fun getQuestions(): LiveData<Question>
+
+    fun answer(option: Int)
+
+    fun getResult(): GameResult
+
+
 }
