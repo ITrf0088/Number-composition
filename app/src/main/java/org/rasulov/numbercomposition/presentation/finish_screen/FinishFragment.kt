@@ -28,7 +28,9 @@ class FinishFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        binding.buttonRetry.setOnClickListener {
+            retry()
+        }
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
             object : OnBackPressedCallback(true) {
@@ -54,7 +56,7 @@ class FinishFragment : Fragment() {
     }
 
 
-    companion object Creator {
+    companion object {
         fun getInstance(): FinishFragment {
             return FinishFragment()
         }

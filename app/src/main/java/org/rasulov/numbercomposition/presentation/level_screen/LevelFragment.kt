@@ -1,12 +1,16 @@
 package org.rasulov.numbercomposition.presentation.level_screen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import org.rasulov.numbercomposition.R
 import org.rasulov.numbercomposition.databinding.FragmentLevelBinding
+import org.rasulov.numbercomposition.domain.entities.Level
+import org.rasulov.numbercomposition.domain.entities.Level.*
 import org.rasulov.numbercomposition.presentation.game_screen.GameFragment
 import java.lang.RuntimeException
 
@@ -16,6 +20,7 @@ class LevelFragment : Fragment() {
     private val binding: FragmentLevelBinding
         get() = _binding ?: throw RuntimeException("FragmentLevelBinding == null")
 
+    private lateinit var viewModel: LevelViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,23 +32,30 @@ class LevelFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.levelBtnEasy.setOnClickListener { launchGameFragment() }
-        binding.levelBtnNormal.setOnClickListener { launchGameFragment() }
-        binding.levelBtnHard.setOnClickListener { launchGameFragment() }
-        binding.levelBtnTest.setOnClickListener { launchGameFragment() }
+        viewModel = ViewModelProvider(this)[LevelViewModel::class.java]
+        viewModel.started.observe(viewLifecycleOwner) {
+            Log.d("itt0088", "startedGameProcess: $it")
+            if (it) launchGameFragment()
+        }
+        binding.levelBtnEasy.setOnClickListener { viewModel.startGame(EASY) }
+        binding.levelBtnNormal.setOnClickListener { viewModel.startGame(NORMAL) }
+        binding.levelBtnHard.setOnClickListener { viewModel.startGame(HARD) }
+        binding.levelBtnTest.setOnClickListener { viewModel.startGame(TEST) }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        viewModel.reset()
     }
 
     private fun launchGameFragment() {
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, GameFragment.getInstance())
-            .addToBackStack(null)
+            .addToBackStack(GameFragment.NAME)
             .commit()
     }
+
 
     companion object {
         fun getInstance(): LevelFragment {

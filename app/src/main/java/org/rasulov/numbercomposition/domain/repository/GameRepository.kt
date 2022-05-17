@@ -17,5 +17,7 @@ interface GameRepository {
 
     fun getResult(): GameResult
 
+    fun finishGame(): Boolean
+
 
 }

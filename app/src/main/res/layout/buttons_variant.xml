@@ -7,18 +7,21 @@
     <TableRow>
 
         <TextView
+            android:id="@+id/zero_option_tv"
             style="@style/optionsStyle"
             android:layout_weight="1"
             android:background="@android:color/holo_green_light"
             tools:text="1" />
 
         <TextView
+            android:id="@+id/first_option_tv"
             style="@style/optionsStyle"
             android:layout_weight="1"
             android:background="@android:color/holo_red_light"
             tools:text="2" />
 
         <TextView
+            android:id="@+id/second_option_tv"
             style="@style/optionsStyle"
             android:layout_weight="1"
             android:background="@android:color/holo_blue_light"
@@ -29,18 +32,21 @@
 
 
         <TextView
+            android:id="@+id/third_option_tv"
             style="@style/optionsStyle"
             android:layout_weight="1"
             android:background="@android:color/holo_purple"
             tools:text="2" />
 
         <TextView
+            android:id="@+id/fourth_option_tv"
             style="@style/optionsStyle"
             android:layout_weight="1"
             android:background="@android:color/holo_orange_light"
             tools:text="1" />
 
         <TextView
+            android:id="@+id/fifth_option_tv"
             style="@style/optionsStyle"
             android:layout_weight="1"
             android:background="@android:color/holo_green_dark"

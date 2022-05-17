@@ -1,5 +1,6 @@
 package org.rasulov.numbercomposition.data.gameprocess
 
+import android.util.Log
 import org.rasulov.numbercomposition.domain.entities.GameSettings
 import org.rasulov.numbercomposition.domain.entities.Question
 import org.rasulov.numbercomposition.domain.entities.Score
@@ -39,14 +40,14 @@ class GameProcess(val gameSettings: GameSettings) {
         var count = 0
 
         while (count < OPTIONS_COUNT) {
-            mAnswer += operand
 
-            if (mAnswer > 0) {
-                list.add(mAnswer)
-            } else {
+            if (mAnswer < 1) {
                 mAnswer = answer
                 operand = 1
             }
+
+            mAnswer += operand
+            list.add(mAnswer)
             count++
         }
 
@@ -54,12 +55,12 @@ class GameProcess(val gameSettings: GameSettings) {
         list[indexOfAnswer] = answer
 
         if (list.size != OPTIONS_COUNT)
-            throw RuntimeException("The size of options must be $OPTIONS_COUNT")
-
+            throw RuntimeException("The size of options must be $OPTIONS_COUNT , now is ${list.size}")
         return list
     }
 
     fun answer(answer: Int) {
+
         if (currentAnswer == answer) {
             countOfRightAnswers++
         }
@@ -67,10 +68,11 @@ class GameProcess(val gameSettings: GameSettings) {
     }
 
     fun getScore(): Score {
+
         return Score(
             countOfRightAnswers,
             gameSettings.minCountOfRightAnswers,
-            ((countOfRightAnswers / countOfQuestions) / 100)
+            ((countOfRightAnswers.toFloat() / countOfQuestions.toFloat()) * 100).toInt()
         )
     }
 

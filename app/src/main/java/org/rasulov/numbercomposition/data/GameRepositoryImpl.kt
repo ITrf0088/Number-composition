@@ -1,5 +1,6 @@
 package org.rasulov.numbercomposition.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import org.rasulov.numbercomposition.data.gameprocess.GameProcess
@@ -17,6 +18,8 @@ object GameRepositoryImpl : GameRepository {
 
     override fun startGameProcess(level: Level): Boolean {
         gameProcess = GameProcessFactory.generate(level)
+        questions.postValue(gameProcess.generateQuestion())
+        score.postValue(Score(0, gameProcess.gameSettings.minCountOfRightAnswers, 0))
         return true
     }
 
@@ -34,6 +37,10 @@ object GameRepositoryImpl : GameRepository {
 
     override fun answer(option: Int) {
         gameProcess.answer(option)
+        nextQuestion()
+    }
+
+    private fun nextQuestion() {
         score.postValue(gameProcess.getScore())
         questions.postValue(gameProcess.generateQuestion())
     }
@@ -55,6 +62,11 @@ object GameRepositoryImpl : GameRepository {
         }
 
         throw RuntimeException("In the Game process score needs to be filled")
+    }
+
+    override fun finishGame(): Boolean {
+        //TODO finishGame
+        return true
     }
 
 
