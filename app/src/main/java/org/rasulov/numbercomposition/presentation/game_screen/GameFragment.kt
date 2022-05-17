@@ -1,10 +1,12 @@
 package org.rasulov.numbercomposition.presentation.game_screen
 
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import org.rasulov.numbercomposition.R
@@ -66,9 +68,22 @@ class GameFragment : Fragment() {
             binding.apply {
                 val template = requireContext().resources.getString(R.string.progress_answers)
                 gameResultTv.text = String.format(template, it.rightAnswers, it.minRightAnswers)
+                gameResultTv.setTextColor(getColorByState(it.isEnoughAnswers))
                 gameProgressBar.setProgress(it.percent, true)
+                gameProgressBar.progressTintList =
+                    ColorStateList.valueOf(getColorByState(it.isEnoughPercent))
+
             }
         }
+    }
+
+    private fun getColorByState(goodState: Boolean): Int {
+        val colorResId = if (goodState) {
+            android.R.color.holo_green_light
+        } else {
+            android.R.color.holo_red_light
+        }
+        return ContextCompat.getColor(requireContext(), colorResId)
     }
 
     private fun handleTimer() {

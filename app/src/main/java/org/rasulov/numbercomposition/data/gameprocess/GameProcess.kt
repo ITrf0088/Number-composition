@@ -1,10 +1,8 @@
 package org.rasulov.numbercomposition.data.gameprocess
 
-import android.util.Log
 import org.rasulov.numbercomposition.domain.entities.GameSettings
 import org.rasulov.numbercomposition.domain.entities.Question
 import org.rasulov.numbercomposition.domain.entities.Score
-import java.lang.RuntimeException
 import kotlin.random.Random
 
 class GameProcess(val gameSettings: GameSettings) {
@@ -68,11 +66,16 @@ class GameProcess(val gameSettings: GameSettings) {
     }
 
     fun getScore(): Score {
+        val percent = ((countOfRightAnswers.toFloat() / countOfQuestions.toFloat()) * 100).toInt()
 
+        val isEnoughAnswers = countOfRightAnswers >= gameSettings.minCountOfRightAnswers
+        val isEnoughPercent = percent >= gameSettings.minPercentOfRightAnswers
         return Score(
             countOfRightAnswers,
             gameSettings.minCountOfRightAnswers,
-            ((countOfRightAnswers.toFloat() / countOfQuestions.toFloat()) * 100).toInt()
+            percent,
+            isEnoughAnswers,
+            isEnoughPercent
         )
     }
 

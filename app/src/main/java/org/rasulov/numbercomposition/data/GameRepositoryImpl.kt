@@ -19,7 +19,15 @@ object GameRepositoryImpl : GameRepository {
     override fun startGameProcess(level: Level): Boolean {
         gameProcess = GameProcessFactory.generate(level)
         questions.postValue(gameProcess.generateQuestion())
-        score.postValue(Score(0, gameProcess.gameSettings.minCountOfRightAnswers, 0))
+        score.postValue(
+            Score(
+                0,
+                gameProcess.gameSettings.minCountOfRightAnswers,
+                0,
+                false,
+                false
+            )
+        )
         return true
     }
 
