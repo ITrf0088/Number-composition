@@ -39,13 +39,17 @@ class GameViewModel : ViewModel() {
         get() = _finished
 
 
-    fun answerQuestion(number: Int) {
-        answer(number)
+    fun answerQuestion(index: Int) {
+        question.value?.let {
+            val number = it.options[index]
+            answer(number)
+        }
     }
 
     fun startTimer() {
 
         val timeInSeconds = (getTimeInSeconds() * 1000).toLong()
+
         timer = object : CountDownTimer(timeInSeconds, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 val commonSeconds = millisUntilFinished / 1000
@@ -56,14 +60,19 @@ class GameViewModel : ViewModel() {
             }
 
             override fun onFinish() {
+                Log.d("ittt0088", "onFinish: ")
+                Log.d("ittt0088", "onFinish: ")
+                Log.d("ittt0088", "onFinish: ")
+                Log.d("ittt0088", "onFinish: ")
                 if (finishGame()) _finished.postValue(true)
             }
         }
         timer?.start()
     }
 
-    fun finishGameFromUser() {
+
+    override fun onCleared() {
+        super.onCleared()
         timer?.cancel()
     }
-
 }

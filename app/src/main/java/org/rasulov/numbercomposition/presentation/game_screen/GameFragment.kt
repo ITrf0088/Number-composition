@@ -1,20 +1,15 @@
 package org.rasulov.numbercomposition.presentation.game_screen
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import org.rasulov.numbercomposition.R
 import org.rasulov.numbercomposition.databinding.FragmentGameBinding
-import org.rasulov.numbercomposition.presentation.finish_screen.FinishFragment
-import org.rasulov.numbercomposition.presentation.level_screen.LevelFragmentDirections
-import java.lang.RuntimeException
 
 class GameFragment : Fragment() {
 
@@ -37,61 +32,18 @@ class GameFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[GameViewModel::class.java]
-        handleReceivedQuestion()
-        handleReceivedScore()
-        handleTimer()
+
+        if (savedInstanceState == null)
+            viewModel.startTimer()
+
+
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.gameTableLayout.viewModel = viewModel
+        binding.gameTableLayout.lifecycleOwner = viewLifecycleOwner
+
         handleFinishing()
-        listenOptionsBtns()
-    }
-
-
-    private fun handleReceivedQuestion() {
-        viewModel.question.observe(viewLifecycleOwner) {
-            Log.d("itt0088", "handleReceivedQuestion: $it")
-            binding.apply {
-                gameSumTv.text = it.sum.toString()
-                gameVisibleNumberTv.text = it.secondOperand.toString()
-                gameTableLayout.apply {
-                    val opt = it.options
-                    zeroOptionTv.text = "${opt[0]}"
-                    firstOptionTv.text = "${opt[1]}"
-                    secondOptionTv.text = "${opt[2]}"
-                    thirdOptionTv.text = "${opt[3]}"
-                    fourthOptionTv.text = "${opt[4]}"
-                    fifthOptionTv.text = "${opt[5]}"
-                }
-            }
-        }
-    }
-
-    private fun handleReceivedScore() {
-        viewModel.score.observe(viewLifecycleOwner) {
-            Log.d("itt0088", "handleReceivedScore: $it")
-            binding.apply {
-                val template = requireContext().resources.getString(R.string.progress_answers)
-                gameResultTv.text = String.format(template, it.rightAnswers, it.minRightAnswers)
-                gameResultTv.setTextColor(getColorByState(it.isEnoughAnswers))
-                gameProgressBar.setProgress(it.percent, true)
-                gameProgressBar.progressTintList =
-                    ColorStateList.valueOf(getColorByState(it.isEnoughPercent))
-
-            }
-        }
-    }
-
-    private fun getColorByState(goodState: Boolean): Int {
-        val colorResId = if (goodState) {
-            android.R.color.holo_green_light
-        } else {
-            android.R.color.holo_red_light
-        }
-        return ContextCompat.getColor(requireContext(), colorResId)
-    }
-
-    private fun handleTimer() {
-        viewModel.time.observe(viewLifecycleOwner) {
-            binding.gameTimeTv.text = it
-        }
     }
 
     private fun handleFinishing() {
@@ -100,39 +52,16 @@ class GameFragment : Fragment() {
         }
     }
 
-    private fun listenOptionsBtns() {
-        binding.gameTableLayout.apply {
-            zeroOptionTv.setOnClickListener { answerQuestion(0) }
-            firstOptionTv.setOnClickListener { answerQuestion(1) }
-            secondOptionTv.setOnClickListener { answerQuestion(2) }
-            thirdOptionTv.setOnClickListener { answerQuestion(3) }
-            fourthOptionTv.setOnClickListener { answerQuestion(4) }
-            fifthOptionTv.setOnClickListener { answerQuestion(5) }
-        }
-    }
-
-    private fun answerQuestion(index: Int) {
-        val options = viewModel.question.value?.options
-        options?.let {
-            viewModel.answerQuestion(it[index])
-        }
-    }
 
     private fun launchFinishFragment() {
         findNavController().navigate(R.id.action_gameFragment_to_finishFragment)
 
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.startTimer()
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-        viewModel.finishGameFromUser()
     }
-
 
 }

@@ -1,57 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <TableRow>
+    <data>
 
-        <TextView
-            android:id="@+id/zero_option_tv"
-            style="@style/optionsStyle"
-            android:layout_weight="1"
-            android:background="@android:color/holo_green_light"
-            tools:text="1" />
+        <variable
+            name="viewModel"
+            type="org.rasulov.numbercomposition.presentation.game_screen.GameViewModel" />
+    </data>
 
-        <TextView
-            android:id="@+id/first_option_tv"
-            style="@style/optionsStyle"
-            android:layout_weight="1"
-            android:background="@android:color/holo_red_light"
-            tools:text="2" />
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/second_option_tv"
-            style="@style/optionsStyle"
-            android:layout_weight="1"
-            android:background="@android:color/holo_blue_light"
-            tools:text="3" />
-    </TableRow>
+        <TableRow>
 
-    <TableRow>
+            <TextView
+                android:id="@+id/zero_option_tv"
+                style="@style/optionsStyle"
+                android:layout_weight="1"
+                android:background="@android:color/holo_green_light"
+                android:text="@{viewModel.question.options.get(0).toString()}"
+                app:onOptionClick="@{()->viewModel.answerQuestion(0)}"
+                tools:text="1" />
+
+            <TextView
+                android:id="@+id/first_option_tv"
+                style="@style/optionsStyle"
+                android:layout_weight="1"
+                android:background="@android:color/holo_red_light"
+                android:text="@{viewModel.question.options.get(1).toString()}"
+                app:onOptionClick="@{()->viewModel.answerQuestion(1)}"
+                tools:text="2" />
+
+            <TextView
+                android:id="@+id/second_option_tv"
+                style="@style/optionsStyle"
+                android:layout_weight="1"
+                android:background="@android:color/holo_blue_light"
+                android:text="@{viewModel.question.options.get(2).toString()}"
+                app:onOptionClick="@{()->viewModel.answerQuestion(2)}"
+                tools:text="3" />
+        </TableRow>
+
+        <TableRow>
 
 
-        <TextView
-            android:id="@+id/third_option_tv"
-            style="@style/optionsStyle"
-            android:layout_weight="1"
-            android:background="@android:color/holo_purple"
-            tools:text="2" />
+            <TextView
+                android:id="@+id/third_option_tv"
+                style="@style/optionsStyle"
+                android:layout_weight="1"
+                android:background="@android:color/holo_purple"
+                android:text="@{viewModel.question.options.get(3).toString()}"
+                app:onOptionClick="@{()->viewModel.answerQuestion(3)}"
+                tools:text="2" />
 
-        <TextView
-            android:id="@+id/fourth_option_tv"
-            style="@style/optionsStyle"
-            android:layout_weight="1"
-            android:background="@android:color/holo_orange_light"
-            tools:text="1" />
+            <TextView
+                android:id="@+id/fourth_option_tv"
+                style="@style/optionsStyle"
+                android:layout_weight="1"
+                android:background="@android:color/holo_orange_light"
+                android:text="@{viewModel.question.options.get(4).toString()}"
+                app:onOptionClick="@{()->viewModel.answerQuestion(4)}"
+                tools:text="1" />
 
-        <TextView
-            android:id="@+id/fifth_option_tv"
-            style="@style/optionsStyle"
-            android:layout_weight="1"
-            android:background="@android:color/holo_green_dark"
-            tools:text="6" />
+            <TextView
+                android:id="@+id/fifth_option_tv"
+                style="@style/optionsStyle"
+                android:layout_weight="1"
+                android:background="@android:color/holo_green_dark"
+                android:text="@{viewModel.question.options.get(5).toString()}"
+                app:onOptionClick="@{()->viewModel.answerQuestion(5)}"
+                tools:text="6" />
 
-    </TableRow>
+        </TableRow>
 
-</TableLayout>
+    </TableLayout>
+</layout>

@@ -1,96 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".presentation.game_screen.GameFragment">
+<layout>
 
-    <TextView
-        android:id="@+id/game_time_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textColor="@color/purple_700"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="00:00" />
+    <data>
 
-    <TextView
-        android:id="@+id/game_sum_tv"
-        style="@style/figuresStyle"
-        android:layout_width="144dp"
-        android:layout_height="144dp"
-        android:background="@drawable/circle_background"
-        app:layout_constraintBottom_toTopOf="@id/game_visible_number_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:text="5" />
+        <variable
+            name="viewModel"
+            type="org.rasulov.numbercomposition.presentation.game_screen.GameViewModel" />
+    </data>
 
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".presentation.game_screen.GameFragment">
 
-    <TextView
-        android:id="@+id/game_visible_number_tv"
-        style="@style/figuresStyle"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@color/teal_700"
-        app:layout_constraintBottom_toTopOf="@id/game_table_layout"
-        app:layout_constraintEnd_toStartOf="@+id/game_unknown_tv"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/game_sum_tv"
+        <TextView
+            android:id="@+id/game_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@{viewModel.time}"
+            android:textColor="@color/purple_700"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="00:00" />
 
-        tools:text="3" />
-
-    <TextView
-        android:id="@+id/game_unknown_tv"
-        style="@style/figuresStyle"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:background="@color/teal_700"
-        android:text="\?"
-        app:layout_constraintBottom_toBottomOf="@id/game_visible_number_tv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/game_visible_number_tv"
-        app:layout_constraintTop_toTopOf="@+id/game_visible_number_tv" />
-
-    <TextView
-        android:id="@+id/game_result_tv"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@id/game_progress_bar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/game_visible_number_tv"
-        app:layout_constraintVertical_chainStyle="packed"
-        tools:text="@string/right_answers" />
-
-    <ProgressBar
-        android:id="@+id/game_progress_bar"
-        style="@android:style/Widget.Material.ProgressBar.Horizontal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:max="100"
-        app:layout_constraintBottom_toTopOf="@id/game_table_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/game_result_tv"
-        tools:progress="50" />
-
-    <include
-        android:id="@+id/game_table_layout"
-        layout="@layout/buttons_variant"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/game_sum_tv"
+            style="@style/figuresStyle"
+            android:layout_width="144dp"
+            android:layout_height="144dp"
+            android:background="@drawable/circle_background"
+            app:layout_constraintBottom_toTopOf="@id/game_visible_number_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:to_string="@{viewModel.question.sum}"
+            tools:text="5" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/game_visible_number_tv"
+            style="@style/figuresStyle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/teal_700"
+            app:layout_constraintBottom_toTopOf="@id/game_table_layout"
+            app:layout_constraintEnd_toStartOf="@+id/game_unknown_tv"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/game_sum_tv"
+            app:to_string="@{viewModel.question.secondOperand}"
+            tools:text="3" />
+
+        <TextView
+            android:id="@+id/game_unknown_tv"
+            style="@style/figuresStyle"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@color/teal_700"
+            android:text="\?"
+            app:layout_constraintBottom_toBottomOf="@id/game_visible_number_tv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/game_visible_number_tv"
+            app:layout_constraintTop_toTopOf="@+id/game_visible_number_tv" />
+
+        <TextView
+            android:id="@+id/game_result_tv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/game_progress_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/game_visible_number_tv"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:progress_answers="@{viewModel.score}"
+            tools:text="@string/right_answers" />
+
+        <ProgressBar
+            android:id="@+id/game_progress_bar"
+            style="@android:style/Widget.Material.ProgressBar.Horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:max="100"
+            app:layout_constraintBottom_toTopOf="@id/game_table_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/game_result_tv"
+            app:progress_percent="@{viewModel.score}"
+            tools:progress="50" />
+
+        <include
+            android:id="@+id/game_table_layout"
+            layout="@layout/buttons_variant"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
