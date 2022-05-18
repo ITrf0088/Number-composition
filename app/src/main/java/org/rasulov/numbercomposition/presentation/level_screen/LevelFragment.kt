@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import org.rasulov.numbercomposition.R
 import org.rasulov.numbercomposition.databinding.FragmentLevelBinding
 import org.rasulov.numbercomposition.domain.entities.Level
@@ -50,16 +51,8 @@ class LevelFragment : Fragment() {
     }
 
     private fun launchGameFragment() {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, GameFragment.getInstance())
-            .addToBackStack(GameFragment.NAME)
-            .commit()
+        findNavController().navigate(R.id.action_levelFragment_to_gameFragment)
+
     }
 
-
-    companion object {
-        fun getInstance(): LevelFragment {
-            return LevelFragment()
-        }
-    }
 }

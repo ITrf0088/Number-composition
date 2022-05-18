@@ -9,9 +9,11 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import org.rasulov.numbercomposition.R
 import org.rasulov.numbercomposition.databinding.FragmentGameBinding
 import org.rasulov.numbercomposition.presentation.finish_screen.FinishFragment
+import org.rasulov.numbercomposition.presentation.level_screen.LevelFragmentDirections
 import java.lang.RuntimeException
 
 class GameFragment : Fragment() {
@@ -117,10 +119,8 @@ class GameFragment : Fragment() {
     }
 
     private fun launchFinishFragment() {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, FinishFragment.getInstance())
-            .addToBackStack(null)
-            .commit()
+        findNavController().navigate(R.id.action_gameFragment_to_finishFragment)
+
     }
 
     override fun onResume() {
@@ -134,14 +134,5 @@ class GameFragment : Fragment() {
         viewModel.finishGameFromUser()
     }
 
-
-    companion object {
-
-        const val NAME = "GAME_FRAGMENT"
-
-        fun getInstance(): GameFragment {
-            return GameFragment()
-        }
-    }
 
 }

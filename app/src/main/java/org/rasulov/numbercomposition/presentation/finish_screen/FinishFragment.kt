@@ -8,6 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import org.rasulov.numbercomposition.R
 import org.rasulov.numbercomposition.databinding.FragmentFinishBinding
 import org.rasulov.numbercomposition.presentation.game_screen.GameFragment
@@ -35,14 +36,7 @@ class FinishFragment : Fragment() {
         viewModel = ViewModelProvider(this)[FinishViewModel::class.java]
         observeFinishResult()
         binding.buttonRetry.setOnClickListener { retry() }
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    retry()
-                }
-            }
-        )
+
 
     }
 
@@ -70,16 +64,8 @@ class FinishFragment : Fragment() {
 
 
     private fun retry() {
-        requireActivity().supportFragmentManager.popBackStack(
-            GameFragment.NAME,
-            FragmentManager.POP_BACK_STACK_INCLUSIVE
-        )
+        findNavController().popBackStack()
     }
 
 
-    companion object {
-        fun getInstance(): FinishFragment {
-            return FinishFragment()
-        }
-    }
 }

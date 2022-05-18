@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import org.rasulov.numbercomposition.R
 import org.rasulov.numbercomposition.databinding.FragmentWelcomeBinding
 import org.rasulov.numbercomposition.presentation.level_screen.LevelFragment
@@ -44,9 +45,7 @@ class WelcomeFragment : Fragment() {
     }
 
     private fun launchLevelFragment() {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, LevelFragment.getInstance())
-            .commit()
+        findNavController().navigate(R.id.action_welcomeFragment_to_levelFragment)
 
     }
 
